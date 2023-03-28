@@ -21,7 +21,6 @@ module.exports = {
   async execute(interaction) {
     // Get the user's question from the command argument
     const question = interaction.options.getString('question');
-    console.log(`question is ${question}`);
     await interaction.deferReply();
 
     try {
@@ -39,8 +38,6 @@ module.exports = {
         // Get the generated response from the OpenAI API
         const answer = `**Q:** ${question}
       **A:** ${response.data.choices[0].text.trim()}`;
-
-        console.log(answer);
 
         const embed = new EmbedBuilder()
           .setTitle('ScuffedGPT')
