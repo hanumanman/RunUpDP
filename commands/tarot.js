@@ -27,7 +27,6 @@ module.exports = {
     const cardName = cardData.name;
     const light = randomIndexGen(cardData.meanings.light);
     const shadow = randomIndexGen(cardData.meanings.shadow);
-    const fortune = randomIndexGen(cardData.fortune_telling);
     const keywords = cardData.keywords.join(', ');
     const cardDescription = `**Light:** 
     ${light}.
