@@ -1,7 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('@discordjs/builders');
-
 const { AttachmentBuilder } = require('discord.js');
 const Fuse = require('fuse.js');
+
 const characterArray = [
   `aba`,
   `anji`,
@@ -11,7 +11,6 @@ const characterArray = [
   `chipp`,
   `dizzy`,
   `eddie`,
-
   `faust`,
   `jam`,
   `johny`,
@@ -28,7 +27,13 @@ const characterArray = [
   `zappa`,
 ];
 
-const characterList = characterArray.join(', ');
+const convertFirstLetterToUpperCase = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+const characterList = characterArray
+  .map((character) => convertFirstLetterToUpperCase(character))
+  .join(', ');
 const options = { minMatchCharLength: 2, findAllMatches: true };
 const fuse = new Fuse(characterArray, options);
 
@@ -57,7 +62,7 @@ module.exports = {
         );
         // Create an embed with the card information and image
         const embed = new EmbedBuilder()
-          .setTitle(character.charAt(0).toUpperCase() + character.slice(1))
+          .setTitle(convertFirstLetterToUpperCase(character))
           .setDescription(
             `Puch HERE for [Clean Hit](https://www.youtube.com/watch?v=5lyl-gavEn0)`
           )
@@ -65,24 +70,23 @@ module.exports = {
           .setFooter({
             text: `Tips: /sidewinder:help to get all characters!`,
           });
-        // .addField(
-        //   '[Sidewinder Guide](https://www.youtube.com/watch?v=5lyl-gavEn0)'
-        // );
+
         await interaction.editReply({
           embeds: [embed],
           files: [attachment],
         });
       }
     } catch (error) {
-      const searchResult = fuse
-        .search(`${character}`)
-        .map(
-          (result) => result.item.charAt(0).toUpperCase() + result.item.slice(1)
-        )
-        .join(' or ');
+      //Fuzzy search character list, return closest results. Or ur mum gay.
+      const searchResult = fuse.search(`${character}`).length
+        ? fuse
+            .search(`${character}`)
+            .map((result) => convertFirstLetterToUpperCase(result.item))
+            .join(' or ')
+        : `ur mum gay`;
 
       await interaction.editReply(
-        `You looked up ${character}. Do you mean ${searchResult}?`
+        `You looked up "${character}". Did you mean ${searchResult}?`
       );
     }
   },
