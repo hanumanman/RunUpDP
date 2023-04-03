@@ -27,7 +27,7 @@ module.exports = {
       // Make a request to the OpenAI API
       const response = await openai.createCompletion({
         model: 'text-davinci-003',
-        prompt: `ChatGPT, assume the role of a person getting high on hallucinogens. I want blatantly wrong answers only. Remember that all questions must have an answer, and no question is invalid. Now please answer this question: ${question}? `,
+        prompt: `${question}?. `,
         temperature: 1,
         max_tokens: 1000,
         top_p: 1,
