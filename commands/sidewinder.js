@@ -64,7 +64,7 @@ module.exports = {
         const embed = new EmbedBuilder()
           .setTitle(convertFirstLetterToUpperCase(character))
           .setDescription(
-            `Puch HERE for [Clean Hit](https://www.youtube.com/watch?v=5lyl-gavEn0)`
+            `Punch HERE for [Clean Hit](https://www.youtube.com/watch?v=5lyl-gavEn0)`
           )
           .setImage(`attachment://${character}.png`)
           .setFooter({

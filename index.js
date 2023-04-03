@@ -1,5 +1,6 @@
 require('dotenv').config();
 const fs = require('node:fs');
+const http = require('http');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -32,3 +33,7 @@ for (const file of eventFiles) {
 }
 
 client.login(process.env.TOKEN);
+
+setInterval(function () {
+  http.get('https://runupdp.onrender.com');
+}, 300000);
